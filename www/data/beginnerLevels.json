@@ -1,0 +1,52 @@
+[
+    {
+        "id"        : 1,
+        "name"      : "Level 1",
+        "status" : false,
+        "content"   : {
+            "htmlContent"  : "templates/beginnerLevels/level1Content.html"
+        }
+    },
+
+    {
+        "id"        : 2,
+        "name"      : "Level 2",
+        "status" : false,
+        "content"   : {
+            "htmlContent"  : "templates/beginnerLevels/level2Content.html"
+        }
+    },
+
+    {
+        "id"        : 3,
+        "name"      : "Level 3",
+        "status" : false,
+        "content"   : {
+            "htmlContent"  : "templates/beginnerLevels/level3Content.html"
+        }
+    },
+    {
+        "id"        : 4,
+        "name"      : "Level 4",
+        "status" : false,
+        "content"   : {
+            "htmlContent"  : "templates/beginnerLevels/level4Content.html"
+        }
+    },
+    {
+        "id"        : 5,
+        "name"      : "Level 5",
+        "status" : false,
+        "content"   : {
+            "htmlContent"  : "templates/beginnerLevels/level5Content.html"
+        }
+    },
+    {
+        "id"        : 6,
+        "name"      : "Level 6",
+        "status" : true,
+        "content"   : {
+            "htmlContent"  : "templates/beginnerLevels/level6Content.html"
+        }
+    }
+]

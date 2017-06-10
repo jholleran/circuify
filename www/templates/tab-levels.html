@@ -1,0 +1,22 @@
+<ion-view view-title="Levels">
+  <ion-content class="padding">
+
+
+	<div class="row" ng-repeat="rows in beginnerLevels">
+	  <div class="col-20" ng-repeat="level in rows">
+	  	<a target="_blank" href="#/level/{{level.id}}">
+	  		<button class="button button-positive button-outline level-button">
+		  	<label ng-if="!level.status">
+		  		{{level.id}}
+			</label>
+			<label ng-if="level.status">
+		  		<i class="icon ion-locked"></i>
+			</label>
+		</button>
+		</a>
+		</div>
+	</div>
+   
+
+  </ion-content>
+</ion-view>
