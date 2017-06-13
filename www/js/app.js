@@ -77,9 +77,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         controller: 'AccountCtrl'
       }
     }
+  })
+
+  .state('tab.levels.level', {
+     cache: false,
+    url: '/level/:id',
+    views: {
+      'level': {
+        templateUrl: 'templates/beginnerLevels/level.html',
+        controller: 'LevelCtrl'
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/levels');
+  //$urlRouterProvider.otherwise('/tab/levels');
 
 });

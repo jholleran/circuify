@@ -39,7 +39,6 @@ angular.module('starter.controllers', [])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-
 .controller('LevelCtrl', function($scope, $stateParams, $http) {
         $scope.levelId = $stateParams.levelId;
 
@@ -67,6 +66,7 @@ angular.module('starter.controllers', [])
             }
             //set the desired content
             levelContent.html(cnt);
+          })
 })
 
 .controller('AccountCtrl', function($scope) {
