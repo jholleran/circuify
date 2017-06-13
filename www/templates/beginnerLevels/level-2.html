@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	html, body {
+		margin: 0px;
+	}
+	.draggable {
+        cursor: move;
+    }
+
+	</style>
+</head>
+	<body>
+		<svg width="1400" height="900" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+			<filter id="dropshadow" width="200%" height="200%">
+			  	<feGaussianBlur in="SourceAlpha" stdDeviation="3"/> 
+			  <feOffset dx="5" dy="5"/>
+			  <feComponentTransfer>
+			    <feFuncA type="linear" slope="0.5"/>
+			  </feComponentTransfer>
+			  <feMerge> 
+			    <feMergeNode/>
+			    <feMergeNode in="SourceGraphic"/> 
+			  </feMerge>
+			 </filter>
+			<g transform="matrix(1 0 0 1 580 110)" filter="url(#dropshadow)">
+				<rect height="300" width="200" y="0" x="0" stroke-width="5" stroke="#000000" fill="#2196f3"/>
+				<rect height="100" width="180" y="20" x="10" stroke-width="5" stroke="#000000" fill="lightgray"/>
+				<text id="meter-display" x="148" y="100" text-anchor="end" style="font-size: 44px;">
+					0
+				</text>
+				<text id="meter-display" x="150" y="100" style="font-size: 30px;">
+				    &#8486;
+				</text>
+				<circle cx="100" cy="200" r="50" stroke="black" stroke-width="3" fill="black" />
+				<path fill="none" stroke="white" d="M 130 160 L 70 240" stroke-width="4" stroke-linecap="round" class="cl_wire"></path>
+
+				<circle cx="50" cy="260" r="12" stroke="red" stroke-width="3" fill="white" />
+				<circle cx="150" cy="260" r="12" stroke="black" stroke-width="3" fill="white" />
+				<path fill="none" stroke="red" d="M 50 260 L 50 320 L -20 320 L -20 190 L -60 190" stroke-width="6" stroke-linecap="round" class="cl_wire"></path>
+				<circle cx="50" cy="260" r="4" stroke="black" stroke-width="3" fill="red" />
+				<circle cx="-60" cy="190" r="4" stroke="black" stroke-width="3" fill="red" />
+				<path fill="none" stroke="#000000" d="M 150 260 L 150 350 L -60 350" stroke-width="6" stroke-linecap="round" class="cl_wire"></path>
+				<circle cx="150" cy="260" r="4" stroke="black" stroke-width="3" fill="black" />
+				<circle cx="-60" cy="350" r="4" stroke="black" stroke-width="3" fill="black" />
+			</g>
+
+			<g transform="matrix(1 0 0 1 100 100)">
+				<path fill="none" stroke="#000000" d="M -170 0 L -170 420 M -170 0 L -190 0 M -170 140 L -190 140 M -170 280 L -190 280 M -170 420 L -190 420   M -390 0 L -390 420 M -370 0 L -390 0 M -370 140 L -390 140 M -370 280 L -390 280 M -370 420 L -390 420" stroke-width="4" stroke-linecap="round" class="cl_wire" style="stroke-linecap: round;" transform="rotate(-90)"></path>
+				<circle cx="0" cy="200" r="8" stroke="black" stroke-width="3" fill="none" />
+				<circle cx="0" cy="360" r="8" stroke="black" stroke-width="3" fill="none" />
+				<circle cx="140" cy="200" r="8" stroke="black" stroke-width="3" fill="none" />
+				<circle cx="140" cy="360" r="8" stroke="black" stroke-width="3" fill="none" />
+				<circle cx="280" cy="200" r="8" stroke="black" stroke-width="3" fill="none" />
+				<circle cx="280" cy="360" r="8" stroke="black" stroke-width="3" fill="none" />
+				<circle cx="420" cy="200" r="8" stroke="black" stroke-width="3" fill="none" />
+				<circle cx="420" cy="360" r="8" stroke="black" stroke-width="3" fill="none" />
+			</g>
+			<text x="50" y="50" style="font-size: 50px;">
+				    Create a resistance of 50 &#8486;
+			</text>
+			<text id="result" x="50" y="550" style="font-size: 50px;">
+			</text>
+		</svg>
+
+		<img draggable="true" src="../../img/res-100.svg" style="position: absolute; left: 50px; top: 580px; z-index: 5;" data-res="100">
+
+		<img draggable="true" src="../../img/res-100.svg" style="position: absolute; left: 100px; top: 580px; z-index: 5;" data-res="100">
+
+		<img draggable="true" src="../../img/res-220.svg" style="position: absolute; left: 150px; top: 580px; z-index: 5;" data-res="220">
+
+		<img draggable="true" src="../../img/link.svg" style="position: absolute; left: 200px; top: 580px; z-index: 5;" data-res="0">
+
+		<img draggable="true" src="../../img/link.svg" style="position: absolute; left: 230px; top: 580px; z-index: 5;" data-res="0">
+
+
+		<div id="log" style="position: absolute; top: 800px; z-index: 4;"></div>
+		
+		<script src="../../js/main.js"></script>
+		<script src="../../js/level-2.js"></script>
+	+</body>
+</html>

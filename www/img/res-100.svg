@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="42px" height="200px" enable-background="new 0 0 197.352 115.204"
+	 xml:space="preserve">
+  <g>
+	<rect id="svg_1" height="100" width="38" y="50" x="2" stroke-width="2" stroke="#000000" fill="#ffb000"/>
+	  <line id="svg_2" y2="70" x2="40" y1="70" x1="2" stroke-width="5" stroke="#a52a2a" fill="none"/>
+	  <line id="svg_3" y2="80" x2="40" y1="80" x1="2" stroke-width="5" stroke="#000000" fill="none"/>
+	  <line id="topLead" y2="50" x2="20" y1="20" x1="20" stroke-width="5" stroke="#000000" fill="none"/>
+	  <line id="bottomLead" y2="180" x2="20" y1="150" x1="20" stroke-width="5" stroke="#000000" fill="none"/>
+	  <circle cx="20" cy="20" r="4" stroke="black" stroke-width="3" fill="black" />
+	  <circle cx="20" cy="180" r="4" stroke="black" stroke-width="3" fill="black" />
+	  <text x="5" y="110" style="font-size: 18px;">
+		    100
+	  </text>
+	  <text x="12" y="130" style="font-size: 18px;">
+		    Ω
+	  </text>
+  </g>
+</svg>
