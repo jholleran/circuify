@@ -50,6 +50,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
 
+  .state('tab.level', {
+     cache: false,
+    url: '/levels/:id',
+    views: {
+      'tab-levels': {
+        templateUrl: 'templates/level.html',
+        controller: 'LevelCtrl'
+      }
+    }
+  })
+
   .state('tab.chats', {
       url: '/chats',
       views: {
@@ -75,17 +86,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       'tab-account': {
         templateUrl: 'templates/tab-account.html',
         controller: 'AccountCtrl'
-      }
-    }
-  })
-
-  .state('tab.levels.level', {
-     cache: false,
-    url: '/level/:id',
-    views: {
-      'level': {
-        templateUrl: 'templates/beginnerLevels/level.html',
-        controller: 'LevelCtrl'
       }
     }
   });

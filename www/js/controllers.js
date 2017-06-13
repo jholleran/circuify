@@ -40,7 +40,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('LevelCtrl', function($scope, $stateParams, $http) {
-        $scope.levelId = $stateParams.levelId;
+        $scope.levelId = $stateParams.id;
 
         //getting list of levels
         $http.get('data/beginnerLevels.json').success(function(data) {
@@ -54,19 +54,14 @@ angular.module('starter.controllers', [])
             }
 
             var levelContent = angular.element(document.querySelector('#levelContent'));
-            var cnt = ""; //content of logoList
-            for (var i=0; i<$scope.level.content.length; i++) {
-                var currentContent = $scope.lvl.content.logos[i];
 
-                cnt += '<li>'+
-                    '<a target="_blank" href="#/level/'+$scope.levelId+'/logo/'+currLogo.id+'">' +
-                    '<img src="'+currLogo.img+'" class="logo-img">'+
-                    '</a>'+
-                    '</li>';
-            }
             //set the desired content
-            levelContent.html(cnt);
+            //levelContent.html("test");
           })
+
+        $scope.levelContentUrl = function() {
+          return "templates/beginnerLevels/level-" + $scope.levelId + ".html";
+        };
 })
 
 .controller('AccountCtrl', function($scope) {

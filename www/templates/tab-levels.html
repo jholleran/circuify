@@ -4,7 +4,7 @@
 
 	<div class="row" ng-repeat="rows in beginnerLevels">
 	  <div class="col-20" ng-repeat="level in rows">
-	  	<a target="_blank" href="templates/beginnerLevels/level-{{level.id}}.html">
+	  	<a ng-href="#/tab/levels/{{level.id}}" href="#/tab/levels/{{level.id}}">
 	  		<button class="button button-positive button-outline level-button">
 		  	<label ng-if="!level.status">
 		  		{{level.id}}
@@ -20,7 +20,3 @@
 
   </ion-content>
 </ion-view>
-
-//href="#/tab/levels/level/{{level.id}}"
-
-//ui-sref="tab.levels.level({id: level.id})"
