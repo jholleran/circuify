@@ -86,5 +86,70 @@ window.onload = function() {
   }
 
 
-  document.getElementById("circuitBoard").addEventListener('mousedown', selectElement);
+  //document.getElementById("circuitBoard").addEventListener('mousedown', selectElement);
+
+
+  function touchStart(event) {
+    event.preventDefault();
+    selectedElement = event.target.parentNode;
+    if(selectedElement.hasAttribute("transform")) {
+      var touch = event.touches[0];
+      currentX = touch.pageX;
+      currentY = touch.pageY;
+      currentMatrix = selectedElement.getAttributeNS(null, "transform").slice(7,-1).split(' ');
+      
+      for(var i=0; i<currentMatrix.length; i++) {
+        currentMatrix[i] = parseFloat(currentMatrix[i]);
+      }
+    }
+
+    selectedElement.addEventListener("touchmove", touchMove);
+  }
+
+  function touchMove(evt) {
+    evt.preventDefault();
+
+    var ts = evt.touches;
+    var to = ts[0];
+    dx = to.pageX - currentX;
+    dy = to.pageY - currentY;
+
+    currentMatrix[4] += dx;
+    currentMatrix[5] += dy;
+
+    newMatrix = "matrix(" + currentMatrix.join(' ') + ")";
+    //console.log("matrix: ", newMatrix);      
+    selectedElement.setAttributeNS(null, "transform", newMatrix);
+
+    currentX = to.pageX;
+    currentY = to.pageY;
+  }
+
+  function touchEnd(event) {
+    event.preventDefault();
+
+    var p = nearestGridPosition({x : currentMatrix[4], y : currentMatrix[5]});
+    currentMatrix[4] = p.x;
+    currentMatrix[5] = p.y;
+
+    newMatrix = "matrix(" + currentMatrix.join(' ') + ")";
+        console.log("matrix: ", newMatrix);      
+    selectedElement.setAttributeNS(null, "transform", newMatrix);
+
+    //selectedElement.removeEventListener("touchmove", touchMove);
+  }
+
+  function nearestGridPoint(p) {
+    var xRemainder = p % gridSpace;
+
+    if(xRemainder > (gridSpace / 2)) {
+      return p + (gridSpace - xRemainder);
+    } else {
+      return p - xRemainder;
+    }
+  }
+
+
+  document.querySelector('body').addEventListener("touchstart", touchStart, false);
+  document.querySelector('body').addEventListener("touchend", touchEnd, false);
 }
