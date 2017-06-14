@@ -1,88 +1,90 @@
-var dragndrop = (function() {
-  var myX = '';
-  var myY = '';
-  var whichArt = '';
+window.onload = function() {
+  var selectedElement = 0;
+  var currentX = 0;
+  var currentY = 0;
+  var currentMatrix = 0;
   var gridSpace = 20;
 
-  function resetZ() {
-    var elements = document.querySelectorAll('img');
-    for (var i = elements.length - 1; i >= 0; i--) {
-      elements[i].style.zIndex = 5;
-    };
-  }
-
-  function moveStart(event) {
-    whichArt = event.target;
-    myX = event.offsetX === undefined ? event.layerX : event.offsetX;
-    myY = event.offsetY === undefined ? event.layerY : event.offsetY;
-    resetZ();
-    whichArt.style.zIndex = 10;
-  }
-
-  function moveDragStop(event) {
-    event.preventDefault();
-  }
-
-  function moveDrop(event) {
-    event.preventDefault();
-    whichArt.style.left = nearestGridPoint(event.pageX - myX) + "px";
-    whichArt.style.top = nearestGridPoint(event.pageY - myY + 20) + "px";
-  }
-
-  function touchStart(event) {
-    event.preventDefault();
-    var whichArt = event.target;
-    var touch = event.touches[0];
-    var moveOffsetX = whichArt.offsetLeft - touch.pageX;
-    var moveOffsetY = whichArt.offsetTop - touch.pageY;
-    //alert(moveOffsetX);
-    resetZ();
-    whichArt.style.zIndex = 10;
-
-    whichArt.addEventListener("touchmove", function(evt) {
-      evt.preventDefault();
-      var ts = evt.touches;
-      for (var i = 0; i < ts.length; i++) {
-        var to = ts[i];
-        var positionX = to.pageX + moveOffsetX;
-        var positionY = to.pageY + moveOffsetY;
-        whichArt.style.left = positionX + "px";
-        whichArt.style.top = positionY + "px";
-      };
+  function selectElement(evt) {
+    evt.preventDefault();
+    selectedElement = evt.target.parentNode;
+    if(selectedElement.hasAttribute("transform")) {
+      currentX = evt.clientX;
+      currentY = evt.clientY;
+      currentMatrix = selectedElement.getAttributeNS(null, "transform").slice(7,-1).split(' ');
       
-    });
+      for(var i=0; i<currentMatrix.length; i++) {
+        currentMatrix[i] = parseFloat(currentMatrix[i]);
+      }
+    }
+
+    document.body.addEventListener('mousemove', moveElement);
+    document.body.addEventListener('mouseup', deselectElement);
+    //document.body.addEventListener('mouseout', deselectElement);
   }
 
-  function touchEnd(event) {
-    event.preventDefault();
-    var whichArt = event.target;
-    var cLeft = whichArt.style.left.substring(0, whichArt.style.left.length - 2);
-    var cTop = whichArt.style.top.substring(0, whichArt.style.left.length - 2);
-    //log("Orig: " + cLeft + " - " + cTop);
-    whichArt.style.left = nearestGridPoint(parseInt(cLeft)) + "px";
-    whichArt.style.top = nearestGridPoint(parseInt(cTop)) + "px";
-    //log("New: " +whichArt.style.left + " - " + whichArt.style.top);
+
+  function moveElement(evt){
+    evt.preventDefault();
+    dx = evt.clientX - currentX;
+    dy = evt.clientY - currentY;
+
+    currentMatrix[4] += dx;
+    currentMatrix[5] += dy;
+
+    newMatrix = "matrix(" + currentMatrix.join(' ') + ")";
+        console.log("matrix: ", newMatrix);      
+    selectedElement.setAttributeNS(null, "transform", newMatrix);
+
+    currentX = evt.clientX;
+    currentY = evt.clientY;
   }
 
-  function nearestGridPoint(p) {
-    var xRemainder = p % gridSpace;
+  function deselectElement(evt){
+    evt.preventDefault();
+    if(selectedElement != 0){
+      document.body.removeEventListener('mousemove', moveElement);
+      document.body.removeEventListener('mouseup', deselectElement);
+      //document.body.removeEventListener('mouseout', deselectElement);
 
-    if(xRemainder > (gridSpace / 2)) {
-      return p + (gridSpace - xRemainder);
-    } else {
-      return p - xRemainder;
+    var p = nearestGridPosition({x : currentMatrix[4], y : currentMatrix[5]});
+    currentMatrix[4] = p.x;
+    currentMatrix[5] = p.y;
+
+    newMatrix = "matrix(" + currentMatrix.join(' ') + ")";
+        console.log("matrix: ", newMatrix);      
+    selectedElement.setAttributeNS(null, "transform", newMatrix);
+      selectedElement = 0;
     }
   }
 
-  function log(msg) {
-    var p = document.getElementById('log');
-    p.innerHTML = msg + "\n" + p.innerHTML;
+  function nearestGridPosition(p) {
+    var xRemainder = p.x % gridSpace;
+    var yRemainder = p.y % gridSpace;
+    var x, y = 0;
+
+    if(xRemainder > (gridSpace / 2)) {
+      x = p.x + (gridSpace - xRemainder);
+    } else {
+      x = p.x - xRemainder;
+    }
+
+    if(yRemainder > (gridSpace / 2)) {
+      y = p.y + (gridSpace - yRemainder);
+    } else {
+      y = p.y - yRemainder;
+    }
+
+
+    //console.log("x remainder", xRemainder);
+    //console.log('old move resistor at', p.x, p.y);
+    //console.log('new move resistor at', x, y);
+    return {
+      x: x,
+      y: y
+    }
   }
 
-  document.querySelector('body').addEventListener("dragstart", moveStart, false);
-  document.querySelector('body').addEventListener("dragover", moveDragStop, false);
-  document.querySelector('body').addEventListener("drop", moveDrop, false);
 
-  document.querySelector('body').addEventListener("touchstart", touchStart, false);
-  document.querySelector('body').addEventListener("touchend", touchEnd, false);
-})();
+  document.getElementById("circuitBoard").addEventListener('mousedown', selectElement);
+}
