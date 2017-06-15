@@ -4,6 +4,7 @@ window.onload = function() {
   var currentY = 0;
   var currentMatrix = 0;
   var gridSpace = 20;
+  var scale = 800 / window.innerWidth;
 
   function selectElement(evt) {
     evt.preventDefault();
@@ -103,7 +104,7 @@ window.onload = function() {
       }
     }
 
-    selectedElement.addEventListener("touchmove", touchMove);
+    document.querySelector('body').addEventListener("touchmove", touchMove);
   }
 
   function touchMove(evt) {
@@ -113,6 +114,9 @@ window.onload = function() {
     var to = ts[0];
     dx = to.pageX - currentX;
     dy = to.pageY - currentY;
+
+    dx *= scale;
+    dy *= scale;
 
     currentMatrix[4] += dx;
     currentMatrix[5] += dy;
@@ -136,7 +140,7 @@ window.onload = function() {
         console.log("matrix: ", newMatrix);      
     selectedElement.setAttributeNS(null, "transform", newMatrix);
 
-    //selectedElement.removeEventListener("touchmove", touchMove);
+    document.querySelector('body').removeEventListener("touchmove", touchMove);
   }
 
   function nearestGridPoint(p) {
@@ -152,4 +156,5 @@ window.onload = function() {
 
   document.querySelector('body').addEventListener("touchstart", touchStart, false);
   document.querySelector('body').addEventListener("touchend", touchEnd, false);
+  document.querySelector('body').addEventListener("touchend", checkCircuit, false);
 }
