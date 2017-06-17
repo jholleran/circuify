@@ -93,7 +93,7 @@ window.onload = function() {
   function touchStart(event) {
     event.preventDefault();
     selectedElement = event.target.parentNode;
-    if(selectedElement.hasAttribute("transform")) {
+    if(selectedElement.hasAttribute("transform") && hasClass(selectedElement, "draggable")) {
       var touch = event.touches[0];
       currentX = touch.pageX;
       currentY = touch.pageY;
@@ -110,37 +110,41 @@ window.onload = function() {
   function touchMove(evt) {
     evt.preventDefault();
 
-    var ts = evt.touches;
-    var to = ts[0];
-    dx = to.pageX - currentX;
-    dy = to.pageY - currentY;
+    if(selectedElement.hasAttribute("transform") && hasClass(selectedElement, "draggable")) {
+      var ts = evt.touches;
+      var to = ts[0];
+      dx = to.pageX - currentX;
+      dy = to.pageY - currentY;
 
-    dx *= scale;
-    dy *= scale;
+      dx *= scale;
+      dy *= scale;
 
-    currentMatrix[4] += dx;
-    currentMatrix[5] += dy;
+      currentMatrix[4] += dx;
+      currentMatrix[5] += dy;
 
-    newMatrix = "matrix(" + currentMatrix.join(' ') + ")";
-    //console.log("matrix: ", newMatrix);      
-    selectedElement.setAttributeNS(null, "transform", newMatrix);
+      newMatrix = "matrix(" + currentMatrix.join(' ') + ")";
+      //console.log("matrix: ", newMatrix);      
+      selectedElement.setAttributeNS(null, "transform", newMatrix);
 
-    currentX = to.pageX;
-    currentY = to.pageY;
+      currentX = to.pageX;
+      currentY = to.pageY;
+    }
   }
 
   function touchEnd(event) {
     event.preventDefault();
 
-    var p = nearestGridPosition({x : currentMatrix[4], y : currentMatrix[5]});
-    currentMatrix[4] = p.x;
-    currentMatrix[5] = p.y;
+    if(selectedElement.hasAttribute("transform") && hasClass(selectedElement, "draggable")) {
+      var p = nearestGridPosition({x : currentMatrix[4], y : currentMatrix[5]});
+      currentMatrix[4] = p.x;
+      currentMatrix[5] = p.y;
 
-    newMatrix = "matrix(" + currentMatrix.join(' ') + ")";
-        console.log("matrix: ", newMatrix);      
-    selectedElement.setAttributeNS(null, "transform", newMatrix);
+      newMatrix = "matrix(" + currentMatrix.join(' ') + ")";
+          console.log("matrix: ", newMatrix);      
+      selectedElement.setAttributeNS(null, "transform", newMatrix);
 
-    document.querySelector('body').removeEventListener("touchmove", touchMove);
+      document.querySelector('body').removeEventListener("touchmove", touchMove);
+    }
   }
 
   function nearestGridPoint(p) {
@@ -151,6 +155,10 @@ window.onload = function() {
     } else {
       return p - xRemainder;
     }
+  }
+
+  function hasClass(element, className) {
+    return element.classList.contains(className);
   }
 
 
