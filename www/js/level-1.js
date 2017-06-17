@@ -41,7 +41,7 @@
 
 	function isAtPosition(element, x, y) {
 		var transform = element.getAttributeNS(null, "transform").slice(7,-1).split(' ');
-      
+	  
 	    for(var i=0; i<transform.length; i++) {
 	    	transform[i] = parseFloat(transform[i]);
 	    }
@@ -49,7 +49,7 @@
 		return transform[4] == x && transform[5] == y;
 	}
 
-	function levelComplete() {
+	function level2Complete() {
 	    var p = document.getElementById('result');
 	    p.innerHTML = "Level 1 Complete. Well Done!";
 	}

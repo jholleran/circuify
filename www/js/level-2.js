@@ -1,17 +1,17 @@
-window.onload = function() {
-	var meter = document.getElementById("meter-display");
+//window.onload = function() {
+	//var meter = document.getElementById("meter-display");
 
-	document.querySelector('body').addEventListener("drop", checkCircuit, false);
-	document.querySelector('body').addEventListener("touchend", checkCircuit, false);
+	//document.querySelector('body').addEventListener("drop", checkCircuit, false);
+	//document.querySelector('body').addEventListener("touchend", checkCircuit, false);
 
-	function checkCircuit() {
+	function checkCircuitLevel2() {
 		var r1, 
 			r2, 
 			r3,
 			res = [];
 
 
-		var components = document.getElementsByTagName("img");
+		var components = document.getElementsByClassName("draggable");
 		for (var i = 0; i < components.length; i++) {
 			var comp = components[i];
 			if(isAtPosition(comp, 80, 280)) {
@@ -29,7 +29,7 @@ window.onload = function() {
 		};
 
 		if(res.length == 1) {
-			meter.innerHTML = res[0];
+			meter().innerHTML = res[0];
 		} else if(res.length > 1) {
 			var add = 0;
 			for (var i = 0; i < res.length; i++) {
@@ -37,7 +37,7 @@ window.onload = function() {
 				add += 1/r;
 			}
 			var result = 1 / add;
-			meter.innerHTML = result;
+			meter().innerHTML = result;
 			//log(result);
 			if(result == 50) {
 				levelComplete();
@@ -47,23 +47,27 @@ window.onload = function() {
 		}
 	}
 
-	function isAtPosition(element, x, y) {
-		return element.offsetLeft == x && element.offsetTop == y;
-	}
+	// function isAtPosition(element, x, y) {
+	// 	return element.offsetLeft == x && element.offsetTop == y;
+	// }
 
 	function levelComplete() {
 	    var p = document.getElementById('result');
 	    p.innerHTML = "Level 2 Complete. Well Done!";
 	}
 
-	function resetLevel() {
-		meter.innerHTML = "0";
-	    var p = document.getElementById('result');
-	    p.innerHTML = "";
-	}
+	// function resetLevel() {
+	// 	meter().innerHTML = "0";
+	//     var p = document.getElementById('result');
+	//     p.innerHTML = "";
+	// }
 
-	function log(msg) {
-		var p = document.getElementById('log');
-		p.innerHTML = msg + "\n" + p.innerHTML;
-	}
-};
+	// function log(msg) {
+	// 	var p = document.getElementById('log');
+	// 	p.innerHTML = msg + "\n" + p.innerHTML;
+	// }
+
+	// function meter() {
+	// 	return document.getElementById("meter-display");
+	// }
+//};

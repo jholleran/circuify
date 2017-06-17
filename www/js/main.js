@@ -164,5 +164,5 @@ window.onload = function() {
 
   document.querySelector('body').addEventListener("touchstart", touchStart, false);
   document.querySelector('body').addEventListener("touchend", touchEnd, false);
-  document.querySelector('body').addEventListener("touchend", checkCircuit, false);
+  document.querySelector('body').addEventListener("touchend", checkCircuitLevel2, false);
 }
